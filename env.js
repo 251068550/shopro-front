@@ -5,21 +5,21 @@ import store from '@/common/store/index'
 let protocol = window.location.protocol;
 // #endif
 const ENV_API_URL = {
-	development: 'https://api.nicmic.xin/addons/shopro/', //开发环境
-	production: 'https://api.nicmic.xin/addons/shopro/', //生产环境
-	// development: 'https://shopro.psycool.xyz/addons/shopro/', //开发环境
-	// production: 'https://shopro.psycool.xyz/addons/shopro/', //生产环境
+	// development: 'https://api.nicmic.xin/addons/shopro/', //开发环境
+	// production: 'https://api.nicmic.xin/addons/shopro/', //生产环境
+	development: 'https://admin.psycool.xyz/addons/shopro/', //开发环境
+	production: 'https://admin.psycool.xyz/addons/shopro/', //生产环境
 	// development: 'http://shopro.com/addons/shopro/', //开发环境
 	// production: 'http://shopro.com/addons/shopro/', //生产环境
 }
 const ENV_BASE_URL = {
-	development: 'https://api.nicmic.xin', //开发环境
-	production: 'https://api.nicmic.xin', //生产环境
-	// development: 'https://shopro.psycool.xyz', //开发环境
-	// production: 'https://shopro.psycool.xyz', //生产环境
+	// development: 'https://api.nicmic.xin', //开发环境
+	// production: 'https://api.nicmic.xin', //生产环境
+	development: 'https://admin.psycool.xyz', //开发环境
+	production: 'https://admin.psycool.xyz', //生产环境
 	// development: 'http://shopro.com', //开发环境
 	// production: 'http://shopro.com', //生产环境
-}
+} 
 
 export const BASE_URL = ENV_BASE_URL[process.env.NODE_ENV || 'development']; //后台根域名
 export const API_URL = ENV_API_URL[process.env.NODE_ENV || 'development']; //后台接口域名

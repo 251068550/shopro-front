@@ -19,6 +19,10 @@
 						<text class="no">未拼中，定金 <text class="red"> ￥{{order.deposit_price}} </text> 已退回</text>
 						<text class="state">拼团奖励+￥{{order.log.award}}</text>
 					</view>
+					<view class="order-groupon x-bc" v-if="order.activity_type == 'groupon' && order.status_code == 'nopay' && order.group_step == 1">
+						<text class="no">已拼中，请在规定时间内支付尾款</text>
+						<text class="state">尾款：￥{{order.final_payment}}</text>
+					</view>
 					<view class="goods-order" v-for="goods in order.item" :key="goods.id">
 						<view class="order-content"><shopro-mini-card :type="'order'" :detail="goods"></shopro-mini-card></view>
 					</view>

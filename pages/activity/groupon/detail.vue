@@ -12,12 +12,14 @@
 				>
 					<block slot="sell">
 						<view class="x-f">
+							<text class="group-data"><text class="red">{{ grouponDetail.num }}</text>人拼团</text>
+							<text class="group-data"><text class="red">{{ grouponDetail.success_num }}</text>人拼中</text>
 							<view class="sell-box">
 								<text class="cuIcon-hotfill"></text>
-								<text class="sell-num">已拼{{ grouponDetail.goods.sales }}件</text>
-							</view>
-							<text class="group-num">{{ grouponDetail.num }}人团</text>
+								<text class="sell-num">未中补贴￥{{ grouponDetail.award }}</text>
+							</view>			
 						</view>
+						
 					</block>
 				</sh-activity-card>
 			</view>
@@ -52,7 +54,7 @@
 					<view class="title-text">
 						待成团，还差
 						<text class="group-num">{{ grouponDetail.num - grouponDetail.current_num }}</text>
-						人拼团成功
+						人完成拼团
 					</view>
 					<view class="count-down x-f" v-if="time">
 						<text class="count-down-tip">倒计时</text>
@@ -90,6 +92,22 @@
 				<view class="x-f">
 					<view class="description one-t">{{ activity.richtext_title || '开团/参团·邀请好友·人满发货（不满退款' }}</view>
 					<text class="cuIcon-right"></text>
+				</view>
+			</view>
+			<view class="log-list">
+				<view class="log-head">
+					参团人员列表
+				</view>
+				<view class="item" v-for="(team, index) in grouponDetail.groupon_log" :key="team.id">
+					<image class="avatar" :src="team.user_avatar" mode="aspectFill"></image>
+					<view class="item-center">
+						<view>{{team.user_nickname}}</view>
+						<view>参团编号：P{{team.group_sn < 10 ? '0' + team.group_sn : team.group_sn}}</view>
+					</view>
+					<view class="item-right">
+						<view class="date">2020-10-10</view>
+						<text class="status" v-show="grouponDetail.status === 'finish' || grouponDetail.status === 'finish-fictitious' && team.is_group == 1">拼中</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -202,6 +220,58 @@ export default {
 </script>
 
 <style lang="scss">
+	.log-list{
+		margin-top: 20rpx;
+		margin-bottom: 100rpx;
+		.log-head{
+			text-align: center;
+			line-height: 80rpx;
+			height: 80rpx;
+			margin-bottom: 1rpx;			
+			font-size: 28rpx;
+			font-weight: bold;
+			background-color: white;
+		}
+		.item{
+			margin-bottom: 1rpx;
+			background-color: white;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			padding: 20rpx;
+			.avatar{
+				width: 90rpx;
+				height: 90rpx;
+				border-radius: 50%;
+				background: #ccc;
+			}
+			.item-center{
+				margin: 0 20rpx;	
+				flex: 1;
+				view:last-child{
+					margin-top: 15rpx;				
+					color: #777;
+					font-size: 26rpx;
+				}
+			}
+			.item-right{
+				text-align: right;
+				margin: 0 20rpx;	
+				.date{		
+					font-size: 20rpx;
+					color: gray;
+					margin-bottom: 15rpx;
+				}
+				.status{				
+					font-size: 20rpx;
+					color: red;
+					background-color: pink;
+					padding: 5rpx 10rpx;
+				}
+			}
+		}
+	}
+	
 .head_box {
 	background: url('http://shopro.7wpp.com/imgs/group_detail_bg.png') no-repeat;
 	background-size: 100% 316rpx;
@@ -245,6 +315,16 @@ export default {
 					width: 460rpx;
 				}
 			}
+		}
+		.group-data {
+			font-size: 24rpx;
+			font-family: PingFang SC;
+			font-weight: 400;
+			color: rgba(153, 153, 153, 1);
+			margin-right: 30rpx;
+		}
+		.red{
+			color: red;
 		}
 	}
 }

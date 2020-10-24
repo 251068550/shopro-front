@@ -3,7 +3,16 @@
 		<view class="head_box"></view>
 		<view class="content_box">
 			<!-- 订单状态 -->
-			<view class="detail-head" :style="orderDetail.consignee ? '' : 'height:120rpx'">
+			<view class="detail-head1" :style="orderDetail.consignee ? '' : 'height:120rpx'" v-if="orderDetail.activity_type == 'groupon'">
+				<view class="state-box x-f">
+					<image class="state-img" src="http://shopro.7wpp.com/imgs/order_state1.png" mode=""></image>
+					<text v-if="(orderDetail.group_step == 1 || orderDetail.group_step == 0) && orderDetail.status == 1">等待成团，拼中付尾款，未拼中补贴红包</text>
+					<text v-else-if="orderDetail.group_step == 1 && orderDetail.status == 0">拼团成功，请支付尾款，逾期未支付，定金不退回</text>
+					<text v-else-if="orderDetail.group_step == 2">拼团成功，{{orderDetail.status_desc}}</text>
+				</view>
+			</view>
+			<!-- 订单状态 -->
+			<view class="detail-head" :style="orderDetail.consignee ? '' : 'height:120rpx'" v-else>
 				<view class="state-box x-f">
 					<image class="state-img" src="http://shopro.7wpp.com/imgs/order_state1.png" mode=""></image>
 					<text>{{ orderDetail.status_desc }}</text>
@@ -349,6 +358,24 @@ export default {
 </script>
 
 <style lang="scss">
+	.detail-head1 {
+		background: red no-repeat;
+		background-size: 100% 180rpx;
+		height: 180rpx;
+	
+		.state-box {
+			padding: 30rpx 40rpx;
+			color: rgba(#fff, 0.9);
+	
+			.state-img {
+				width: 60rpx;
+				height: 60rpx;
+				// background: #ccc;
+				margin-right: 40rpx;
+			}
+		}
+	}
+	
 .detail-head {
 	background: linear-gradient(0deg, rgba(239, 196, 128, 1) 0%, rgba(248, 220, 165, 1) 100%) no-repeat;
 	background-size: 100% 180rpx;
